@@ -18,7 +18,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sp
     tiles.placeOnTile(projectile, location)
 })
 sprites.onCreated(SpriteKind.Projectile, function (sprite) {
-    sprite.startEffect(effects.fountain, 200)
+    sprite.startEffect(effects.smiles, 200)
     music.baDing.play()
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleRedCrystal, function (sprite, location) {
@@ -41,6 +41,9 @@ tiles.setTilemap(tiles.createTilemap(hex`1e000a000100000000030000000000000000000
     2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 
     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
     `, [myTiles.transparency16,sprites.builtin.brick,sprites.dungeon.collectibleRedCrystal,sprites.dungeon.chestClosed,sprites.dungeon.chestOpen], TileScale.Sixteen))
+for (let 值 of tiles.getTilesByType(sprites.dungeon.chestOpen)) {
+    tiles.setTileAt(值, sprites.dungeon.chestClosed)
+}
 mySprite = sprites.create(img`
     . . . . . . . . . . . . . 
     . . . f f f f f f . . . . 
@@ -60,7 +63,7 @@ mySprite = sprites.create(img`
     . . f f . . . f f f . . . 
     `, SpriteKind.Player)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
+mySprite.ay = 300
 tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 8))
 controller.moveSprite(mySprite, 100, 0)
 scene.cameraFollowSprite(mySprite)
-mySprite.ay = 300
